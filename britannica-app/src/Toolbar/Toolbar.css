@@ -17,9 +17,9 @@
     height: 100%;
 }
 
-.Logo {
+/* .LogoTool {
     height: 80% !important;
-}
+} */
 
 @media(max-width: 499px) {
     .DesktopOnly {

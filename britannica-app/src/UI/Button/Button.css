@@ -1,0 +1,15 @@
+.Button {
+    background-color: #084466;
+    border: none;
+    color: #f8ab07;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.disabled {
+    opacity: 0.5;
+}

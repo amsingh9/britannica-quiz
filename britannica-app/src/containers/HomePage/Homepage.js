@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import './Homepage.css'
-import Button from '../UI/Button/Button'
+import Button from '../../UI/Button/Button'
 
 class Homepage extends Component {
 

@@ -43,3 +43,9 @@
         color: white;
     }
 }
+
+@media(max-width: 499px) {
+    .NavigationItem a { 
+        color: #084465
+    }
+}

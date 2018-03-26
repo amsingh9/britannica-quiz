@@ -1,0 +1,16 @@
+.question {
+    padding: 10px;
+    border: solid 1px grey;
+}
+
+.question input[type="radio"] {
+    text-align: start !important
+}
+
+.Success {
+    color: #5C9210;
+}
+
+.Danger {
+    color: #944317;
+}
