@@ -10,6 +10,7 @@ This is my britannica quiz repo.
 - in your terminal go to the target folder ${Home}/{Download_path}/britannica-app
 - install the required node modules by giving the command : npm install
 - once all the required modules have been successfully loaded, fire up the server and start the app by giving the command : npm start
+- the app will run on http:/localhost:3000
 
 # Key points regarding the app
 
