@@ -5,3 +5,10 @@ export const updateScore = () => {
         type : actionTypes.UPDATE_SCORE
     }
 }
+
+export const setQuestions = (question) => {
+    return {
+        type : actionTypes.SET_QUESTIONS,
+        ques : question
+    }
+}

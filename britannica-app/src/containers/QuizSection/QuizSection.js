@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import './QuizSection.css'
 import Button from '../../UI/Button/Button'
 import axios from 'axios'
+import {connect} from 'react-redux'
+import * as actions from '../../store/actionsCreator'
 
 class QuizSection extends Component {
 
@@ -11,7 +13,23 @@ class QuizSection extends Component {
     }
     
     startQuizHandler = () => {
-        this.props.history.push('/q1');    
+        axios.get('https://britannicaquiz-aman.firebaseio.com/questions.json')
+            .then(res => {
+                let fetchedQues = [];
+                for(let key in res.data) {
+                    fetchedQues.push({
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+ 
+                this.props.setQuestions(fetchedQues);   
+            }).then(res => {
+                this.props.history.push('/q1');
+            })
+            .catch(err => {
+                console.log("Error Occured : " + err);    
+            });  
     }
 
     componentDidMount () {
@@ -47,4 +65,10 @@ class QuizSection extends Component {
     }
 }
 
-export default QuizSection
+const mapDispatchToProps = dispatch => {
+    return {
+        setQuestions : (ques) => dispatch(actions.setQuestions(ques))
+    }
+}
+
+export default connect(null,mapDispatchToProps)(QuizSection);

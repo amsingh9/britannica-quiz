@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
 import Question from '../../../Quiz/Question'
 import Button from '../../../UI/Button/Button'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import * as actions from '../../../store/actionsCreator'
 
 class Q6 extends Component {
     state = {
-        questions : [],
         answer : "",
         explanation : "",
         hidden : true,
@@ -48,33 +46,42 @@ class Q6 extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://britannicaquiz-aman.firebaseio.com/5.json')
-            .then(res => {
-                console.log(res.data);
-                const fetchedData = [];
-                const exp  = res.data.explanation;
-                let ans = res.data.correct;
-                if(ans === 1) {
-                    ans = "Fact"
-                } else {
-                    ans = "Fiction"
-                }
-                fetchedData.push(res.data);
-                this.setState({
-                    questions : fetchedData,
-                    answer : ans,
-                    explanation : exp
-                });
-            })
-            .catch(err => {
-                console.log("Error Occured : " + err);    
-            });
+        const q = this.props.ques[0];
+        const quest = Object.keys(q).map(key => {
+            return (
+                [key, q[key]]
+            ) 
+        });
+        let mapping = [];
+        mapping.push((quest[5])[1]);
+
+        let ans = mapping[0].correct;
+        if(ans === 1) {
+            ans = "Fact"
+        } else {
+            ans = "Fiction"
+        }
+
+        let exp = mapping[0].explanation;
+        
+        this.setState({
+            answer : ans,
+            explanation : exp
+        });
     }
     render () {
         const explanation = this.state.correct ? (this.state.hidden ? null : <p className="Success">Correct ! {this.state.explanation}</p>) : this.state.hidden ? null : <p className="Danger">Oops! {this.state.explanation}</p> ;
+        const q = this.props.ques[0];
+        const quest = Object.keys(q).map(key => {
+            return (
+                [key, q[key]]
+            ) 
+        });
+        let mapping = [];
+        mapping.push((quest[5])[1]);
         return (
             <div className="question">
-                {this.state.questions.map((question,i) => (
+                {mapping.map((question,i) => (
                         <Question key={i} changeEvent={this.handleOptionChange} name={"ans"+i} question={question.question}
                         answers={question.answers}/>
                     ))}
@@ -88,10 +95,16 @@ class Q6 extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        ques : state.questions
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         updateScore : () => dispatch(actions.updateScore())
     }
 }
 
-export default connect(null,mapDispatchToProps)(Q6);
+export default connect(mapStateToProps,mapDispatchToProps)(Q6);
