@@ -15,16 +15,15 @@ class Q2 extends Component {
     }
 
     handleOptionChange = (changeEvent) => {
-        console.log(changeEvent.target.name);
         this.setState({
             selectedOption: changeEvent.target.value
         });
     }
 
-    checkAnsHandler = () => {
-
+    checkAnsHandler = (ques) => {
         if(this.state.selectedOption === this.state.answer) {
             this.props.updateScore();
+            this.props.addAns(ques);
             this.setState({
                 hidden : false,
                 correct : true,
@@ -32,6 +31,7 @@ class Q2 extends Component {
                 nextdisabled : false
             })
         } else {
+            this.props.addWrongAns(ques);
             this.setState({
                hidden : false,
                correct : false,
@@ -82,13 +82,15 @@ class Q2 extends Component {
         return (
             <div className="question">
                 {mapping.map((question,i) => (
+                    <div key={i}>
                         <Question key={i} changeEvent={this.handleOptionChange} name={"ans"+i} question={question.question}
                         answers={question.answers}/>
+                        <div>
+                            <Button disabled={this.state.disabled} click={() => this.checkAnsHandler(question.question)} title="Check Answer"/>
+                            <Button disabled={this.state.nextdisabled} click={this.resulthandler} title="Next Question"/>
+                        </div>
+                    </div>    
                     ))}
-                 <div>
-                    <Button disabled={this.state.disabled} click={this.checkAnsHandler} title="Check Answer"/>
-                    <Button disabled={this.state.nextdisabled} click={this.resulthandler} title="Next Question"/>
-                </div>
                 {explanation}
             </div>  
         );
@@ -103,7 +105,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateScore : () => dispatch(actions.updateScore())
+        updateScore : () => dispatch(actions.updateScore()),
+        addAns : (ques) => dispatch(actions.addCorrectAns(ques)),
+        addWrongAns : (ques) => dispatch(actions.addWrongAns(ques))
     }
 }
 

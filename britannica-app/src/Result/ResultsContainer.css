@@ -1,0 +1,12 @@
+.correctAns {
+    color : green;
+}
+
+.wrongAns {
+    color: red;
+}
+
+.resultContainer {
+    margin-top : 50px;
+    border: solid 1px grey;
+}

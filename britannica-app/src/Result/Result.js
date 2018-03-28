@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './Result.css'
+import ResultsContainer from './ResultsContainer'
 
 class ResultPage extends Component {
 
@@ -20,6 +21,7 @@ class ResultPage extends Component {
         return (
             <div className="result">
                 {result}
+                <ResultsContainer/>
             </div>
         );
     }

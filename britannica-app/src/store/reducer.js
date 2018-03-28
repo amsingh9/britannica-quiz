@@ -2,13 +2,13 @@ import * as actionTypes from './actionTypes'
 
 const initialState = {
     score : 0,
-    questions : []
+    questions : [],
+    correctans : [],
+    wrongans : []
 }
 
 
 const reducer = (state=initialState,action) => {
-    console.log(initialState);
-    console.log(state);
     switch(action.type) {
         case actionTypes.UPDATE_SCORE : 
             return {
@@ -19,7 +19,17 @@ const reducer = (state=initialState,action) => {
             return {
                 ...state,
                 questions : action.ques
-            };    
+            }; 
+        case actionTypes.ADD_CORRECT_ANSWER :
+            return {
+                ...state,
+                correctans : state.correctans.concat(action.correctans)
+            };
+        case actionTypes.ADD_WRONG_ANSWER:
+            return {
+                ...state,
+                wrongans : state.wrongans.concat(action.wrongans)
+            };                    
         default : return state
     }
 }

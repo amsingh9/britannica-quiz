@@ -12,3 +12,17 @@ export const setQuestions = (question) => {
         ques : question
     }
 }
+
+export const addCorrectAns = (question) => {
+    return {
+        type : actionTypes.ADD_CORRECT_ANSWER,
+        correctans : question
+    }
+}
+
+export const addWrongAns = (question) => {
+    return {
+        type : actionTypes.ADD_WRONG_ANSWER,
+        wrongans : question
+    }
+}
